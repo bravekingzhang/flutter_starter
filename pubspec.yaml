@@ -1,0 +1,66 @@
+name: flutter_rapid_framework
+description: Flutter 快速开发框架 - 屏蔽重复劳动，统一开发规范，提升开发效率
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # 状态管理
+  flutter_riverpod: ^2.4.9
+  
+  # 路由
+  go_router: ^12.1.3
+  
+  # 网络请求
+  dio: ^5.4.0
+  pretty_dio_logger: ^1.3.1
+  
+  # 本地存储
+  shared_preferences: ^2.2.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  
+  # UI组件
+  flutter_screenutil: ^5.9.0
+  
+  # 工具类
+  logger: ^2.0.2+1
+  fluttertoast: ^8.2.4
+  
+  # 国际化
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  
+  # 代码生成
+  auto_route_generator: ^7.3.2
+  build_runner: ^2.4.7
+  hive_generator: ^2.0.1
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+  
+#  fonts:
+#    - family: PingFang
+#      fonts:
+#        - asset: assets/fonts/PingFang-Regular.ttf
+#        - asset: assets/fonts/PingFang-Medium.ttf
+#          weight: 500
+#        - asset: assets/fonts/PingFang-Bold.ttf
+#          weight: 700
