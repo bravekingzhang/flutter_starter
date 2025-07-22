@@ -32,7 +32,6 @@ class AppTheme {
         primary: primaryColor,
         secondary: accentColor,
         surface: surfaceColor,
-        background: backgroundColor,
         error: Colors.red,
       ),
       
@@ -185,7 +184,6 @@ class AppTheme {
         primary: primaryColorLight,
         secondary: accentColor,
         surface: Color(0xFF1E1E1E),
-        background: Color(0xFF121212),
         error: Colors.redAccent,
       ),
       

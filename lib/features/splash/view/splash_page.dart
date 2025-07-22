@@ -53,7 +53,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                 borderRadius: BorderRadius.circular(20.r),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -85,7 +85,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
               '快速开发框架',
               style: TextStyle(
                 fontSize: 16.sp,
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.white.withValues(alpha: 0.8),
               ),
             ),
             

@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../core/log/app_logger.dart';
-import '../../../core/network/network_manager.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/storage/storage_manager.dart';
 
