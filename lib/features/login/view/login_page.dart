@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import '../../../common/widgets/app_button.dart';
 import '../view_model/login_view_model.dart';
 
 /// 登录页面
+@RoutePage()
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
@@ -193,6 +195,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   void _handleLogin(LoginViewModel loginNotifier) {
     if (_formKey.currentState?.validate() ?? false) {
       loginNotifier.login(
+        context: context,
         username: _usernameController.text.trim(),
         password: _passwordController.text.trim(),
       );

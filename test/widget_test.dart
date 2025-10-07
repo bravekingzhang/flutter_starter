@@ -33,23 +33,57 @@ void main() {
       expect(viewModel.state.error, null);
     });
 
-    test('登录成功应该清除加载状态', () async {
+    testWidgets('登录成功应该清除加载状态', (WidgetTester tester) async {
       final viewModel = LoginViewModel();
-      
-      // 模拟登录
-      await viewModel.login(username: 'admin', password: '123456');
-      
+
+      // 创建一个测试用的 Widget 来提供 BuildContext
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              // 模拟登录
+              viewModel.login(
+                context: context,
+                username: 'admin',
+                password: '123456',
+              );
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+      );
+
+      // 等待异步操作完成
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+
       // 验证状态
       expect(viewModel.state.isLoading, false);
       expect(viewModel.state.error, null);
     });
 
-    test('登录失败应该设置错误信息', () async {
+    testWidgets('登录失败应该设置错误信息', (WidgetTester tester) async {
       final viewModel = LoginViewModel();
-      
-      // 模拟登录失败
-      await viewModel.login(username: 'wrong', password: 'wrong');
-      
+
+      // 创建一个测试用的 Widget 来提供 BuildContext
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              // 模拟登录失败
+              viewModel.login(
+                context: context,
+                username: 'wrong',
+                password: 'wrong',
+              );
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+      );
+
+      // 等待异步操作完成
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+
       // 验证状态
       expect(viewModel.state.isLoading, false);
       expect(viewModel.state.error, isNotNull);
@@ -57,11 +91,11 @@ void main() {
 
     test('清除错误信息', () {
       final viewModel = LoginViewModel();
-      
+
       // 手动设置错误状态
       viewModel.state = viewModel.state.copyWith(error: 'Test error');
       expect(viewModel.state.error, 'Test error');
-      
+
       // 清除错误
       viewModel.clearError();
       expect(viewModel.state.error, null);

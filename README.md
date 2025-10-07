@@ -19,7 +19,7 @@ lib/
 │
 ├── core/                       # 核心能力模块
 │   ├── config/                 # 环境配置、多端变量
-│   ├── router/                 # 路由系统（统一注解、自动注册）
+│   ├── router/                 # 路由系统（AutoRoute 注解式路由 + 类型安全）
 │   ├── network/                # 网络请求封装（Dio + 拦截器 + 错误处理）
 │   ├── storage/                # 本地缓存（Hive/SharedPrefs 封装）
 │   └── log/                    # 日志系统（debugLog、crashLog、打点等）
@@ -90,17 +90,27 @@ await StorageManager.saveUserInfo(userInfo);
 
 ### 路由管理模块
 
-基于 GoRouter 的路由管理：
+基于 AutoRoute 的类型安全路由，支持注解式声明：
 
 ```dart
-// 跳转到登录页
-AppNavigator.toLogin();
+// 1. 在页面类上添加 @RoutePage() 注解
+@RoutePage()
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
+  // ...
+}
 
-// 跳转到主页
-AppNavigator.toHome();
+// 2. 使用类型安全的导航
+context.router.push(const HomeRoute());
+context.router.replace(const LoginRoute());
 
-// 退出登录
-AppNavigator.logout();
+// 3. 带参数的路由导航
+context.router.push(UserProfileRoute(userId: '123'));
+
+// 4. 退出登录
+await StorageManager.clearToken();
+await StorageManager.clearUserInfo();
+context.router.replace(const LoginRoute());
 ```
 
 ### 日志系统
@@ -150,7 +160,15 @@ AppButton.secondary(
 
 1. 在 `lib/features/` 下创建新的模块文件夹
 2. 按照现有结构创建 `view/` 和 `view_model/` 文件夹
-3. 在路由配置中添加新路由
+3. 在页面类上添加 `@RoutePage()` 注解
+4. 在 `lib/core/router/app_router.dart` 的 `routes` 列表中添加路由：
+   ```dart
+   AutoRoute(page: YourPageRoute.page)
+   ```
+5. 运行代码生成：
+   ```bash
+   dart run build_runner build --delete-conflicting-outputs
+   ```
 
 ### 添加新的网络接口
 
@@ -164,12 +182,27 @@ AppButton.secondary(
 ## 📦 主要依赖
 
 - `flutter_riverpod`: 状态管理
-- `go_router`: 路由管理
+- `auto_route`: 类型安全的路由管理
 - `dio`: 网络请求
 - `hive`: 本地数据库
 - `shared_preferences`: 轻量级存储
 - `flutter_screenutil`: 屏幕适配
 - `logger`: 日志记录
+
+## 🔧 代码生成
+
+本项目使用代码生成来简化开发，需要运行以下命令：
+
+```bash
+# 生成路由代码（首次或修改路由后）
+dart run build_runner build --delete-conflicting-outputs
+
+# 监听模式（开发时推荐）
+dart run build_runner watch
+
+# 清理并重新生成
+dart run build_runner clean && dart run build_runner build --delete-conflicting-outputs
+```
 
 ## 🤝 贡献指南
 

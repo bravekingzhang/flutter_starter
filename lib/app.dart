@@ -11,24 +11,24 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appRouter = ref.watch(appRouterProvider);
-    
+    final appRouter = AppRouter();
+
     return MaterialApp.router(
       title: 'Flutter Rapid Framework',
       debugShowCheckedModeBanner: false,
-      
+
       // 主题配置
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      
+
       // 国际化配置
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      
+
       // 路由配置
-      routerConfig: appRouter,
-      
+      routerConfig: appRouter.config(),
+
       // 全局构建器
       builder: (context, child) {
         return MediaQuery(

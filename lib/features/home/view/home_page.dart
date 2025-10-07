@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import '../../../core/router/app_router.dart';
 import '../../../core/storage/storage_manager.dart';
 
 /// 主页
+@RoutePage()
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -117,7 +119,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     title: '个人中心',
                     subtitle: '查看个人信息',
                     onTap: () {
-                      // TODO: 跳转到个人中心
+                      context.router.push(const ProfileRoute());
                     },
                   ),
                   _buildFeatureCard(
@@ -125,7 +127,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     title: '系统设置',
                     subtitle: '应用设置管理',
                     onTap: () {
-                      // TODO: 跳转到设置页面
+                      context.router.push(const SettingsRoute());
                     },
                   ),
                   _buildFeatureCard(
@@ -133,7 +135,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     title: '消息通知',
                     subtitle: '查看系统消息',
                     onTap: () {
-                      // TODO: 跳转到消息页面
+                      context.router.push(const NotificationsRoute());
                     },
                   ),
                   _buildFeatureCard(
@@ -141,7 +143,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     title: '帮助中心',
                     subtitle: '使用帮助文档',
                     onTap: () {
-                      // TODO: 跳转到帮助页面
+                      context.router.push(const HelpRoute());
                     },
                   ),
                 ],
@@ -256,9 +258,15 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: const Text('取消'),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).pop();
-              AppNavigator.logout();
+              // 清除用户数据
+              await StorageManager.clearToken();
+              await StorageManager.clearUserInfo();
+              // 跳转到登录页
+              if (mounted) {
+                context.router.replace(const LoginRoute());
+              }
             },
             child: const Text('确定'),
           ),

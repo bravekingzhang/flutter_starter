@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import '../../../core/router/app_router.dart';
 import '../../../core/storage/storage_manager.dart';
 
 /// 启动页
+@RoutePage()
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
 
@@ -24,15 +26,15 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   Future<void> _initApp() async {
     // 延迟 2 秒显示启动页
     await Future.delayed(const Duration(seconds: 2));
-    
+
     if (!mounted) return;
-    
+
     // 检查登录状态并跳转
     final isLoggedIn = await StorageManager.isLoggedIn();
     if (isLoggedIn) {
-      AppNavigator.toHome();
+      context.router.replace(const HomeRoute());
     } else {
-      AppNavigator.toLogin();
+      context.router.replace(const LoginRoute());
     }
   }
 
