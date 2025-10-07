@@ -36,6 +36,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  auto_route: ^9.3.0+1
 
 dev_dependencies:
   flutter_test:
@@ -43,8 +44,8 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   
   # 代码生成
-  auto_route_generator: ^7.3.2
-  build_runner: ^2.4.7
+  auto_route_generator: ^9.0.0
+  build_runner: ^2.5.4
   hive_generator: ^2.0.1
   json_annotation: ^4.8.1
   json_serializable: ^6.7.1
