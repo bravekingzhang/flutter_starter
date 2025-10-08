@@ -44,7 +44,7 @@ dev_dependencies:
 
   # 代码生成
   auto_route_generator: ^9.0.0
-  build_runner: ^2.5.4
+  build_runner: ^2.4.13
   hive_generator: ^2.0.1
   json_annotation: ^4.8.1
   json_serializable: ^6.7.1
